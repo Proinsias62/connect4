@@ -1,6 +1,7 @@
 let grid = []; //Connect 4 Array, stores colour of disc
-
 let gameInPlay = false; //Stop play on win, restart required
+let currentColor = 'red'; //First disc is red
+
 
 //Restart Game
 window.restart = () => {
@@ -11,11 +12,14 @@ window.restart = () => {
         [{}, {}, {}, {}, {}, {}, {}],
         [{}, {}, {}, {}, {}, {}, {}],
         [{}, {}, {}, {}, {}, {}, {}],
+        [{}, {}, {}, {}, {}, {}, {}],
     ];
 
     render();
+
     document.getElementById("winnerAlert").innerHTML = " "; //Blank out winner alert
     gameInPlay = true; //Start play
+    //console.log("Grid Length", grid.length);
 }
 
 //Alert to announce game winner
@@ -33,6 +37,7 @@ const render = () => {
         row = grid[i];
         for (var j = 0; j < row.length; j++) {
             const square = grid[i][j];
+            //console.log(i,j);
             const color = square && square.color || 'gray'; //Set initial background to gray
             doc = doc + `<circle onclick = "clickSquare(${j},${i})" cx='${j * 70 + 50}px' cy='${i * 70 + 50}px' r='30px' fill='${color}'></circle>`;
         }
@@ -41,7 +46,7 @@ const render = () => {
     svg.innerHTML = doc;
 };
 
-let currentColor = 'red'; //First disc is red
+
 window.clickSquare = (x, y) => {
     //console.log("You clicked square", x, y);
     if (!gameInPlay) {
@@ -51,6 +56,7 @@ window.clickSquare = (x, y) => {
         //Place disc at lowest allowed position in row
         row = grid[i];
         var targetPlace = row[x];
+        //console.log("Row = ", i,"Y = ", y, "Target Place = ", x);
         //console.log(y, targetPlace);
         if (!targetPlace.color) {
             row[x] = { color: currentColor };
@@ -71,7 +77,7 @@ checkWinner = () => {
         for (var j = 0; j < row.length; j++) {
             const square = grid[i][j];
             if (square && square.color) {
-                if (i === 0 || i === 1) {
+                if (i === 0 || i === 1 || i === 2) {
                     //Check Verticals
                     if (grid[i + 1][j].color === square.color &&
                         grid[i + 2][j].color === square.color &&
@@ -93,7 +99,7 @@ checkWinner = () => {
                     }
 
                 }
-                if (i === 0 || i === 1) {
+                if (i === 0 || i === 1 || i === 2) {
                     if (j === 0 || j === 1 || j === 2 || j === 3) {
                         //Check Diagonal
                         if (grid[i + 1][j + 1].color === square.color &&
