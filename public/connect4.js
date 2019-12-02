@@ -19,6 +19,7 @@ window.restart = () => {
 
     document.getElementById("winnerAlert").innerHTML = " "; //Blank out winner alert
     gameInPlay = true; //Start play
+    whoseTurn(currentColor);
     //console.log("Grid Length", grid.length);
 }
 
@@ -27,6 +28,11 @@ winnerAlert = (color) =>{
     gameInPlay = false; //Stop play until restart
     document.getElementById("winnerAlert").style.color = color;
     document.getElementById("winnerAlert").innerHTML = `And the winner is ${color}`;
+}
+
+whoseTurn = (color) =>{
+    document.getElementById("winnerAlert").style.color = color;
+    document.getElementById("winnerAlert").innerHTML = `It is ${color}s turn`;
 }
 
 //Set up the Connect 4 Grid and update it after a player drops disc
@@ -62,6 +68,7 @@ window.clickSquare = (x, y) => {
             row[x] = { color: currentColor };
             currentColor = currentColor === "red" ? "blue" : "red"; //Change disc colour
             render();
+            whoseTurn(currentColor);
             checkWinner();
             return;
         }
