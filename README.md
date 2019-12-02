@@ -1,6 +1,6 @@
 # connect4
 
-This code is primarily the work of Code Whisperer.
+This Javascript code is primarily the work of Code Whisperer.
 
 His youtube channel is here: https://www.youtube.com/channel/UC5ohWghqu1C7bYAq_IDBkIw
 
